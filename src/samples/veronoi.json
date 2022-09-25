@@ -1,0 +1,83 @@
+{
+  "nodes": [
+    {
+      "id": "5",
+      "type": "node",
+      "data": { "name": "uv", "type": "uv" },
+      "position": { "x": 181, "y": 107 },
+      "width": 128,
+      "height": 42
+    },
+    {
+      "id": "4",
+      "type": "uniform",
+      "data": { "name": "time", "value": 0, "uniformId": "1" },
+      "position": { "x": 100, "y": 184 },
+      "width": 128,
+      "height": 42,
+      "selected": false,
+      "positionAbsolute": { "x": 100, "y": 184 },
+      "dragging": false
+    },
+    {
+      "id": "2",
+      "type": "node",
+      "data": { "name": "preview", "type": "preview" },
+      "position": { "x": 832, "y": 186 },
+      "width": 128,
+      "height": 188,
+      "selected": false,
+      "positionAbsolute": { "x": 832, "y": 186 },
+      "dragging": false
+    },
+    {
+      "id": "1",
+      "type": "function",
+      "data": {
+        "name": "veronoi",
+        "type": "function",
+        "definitions": {
+          "outputs": [{ "type": "float", "name": "veronoi" }],
+          "inputs": [
+            { "type": "vec2", "name": "uv" },
+            { "type": "float", "name": "time" }
+          ]
+        },
+        "code": "vec2 N22(in vec2 p){\n  vec3 a = fract(p.xyx * vec3(123.34,234.34,345.64));\n  a+=dot(a, a+ 34.45);\n  return fract(vec2(a.x*a.y, a.y*a.z));\n}\n\n\nfloat veronoi(vec2 uv, float time){\n  vec2 gv = fract(uv) -.5;\n  vec2 id = floor(uv);\n  vec3 col = vec3(0);\n  float minDist = 100.;\n  for(float y = -1.;y <=1.; y++){\n    for(float x = -1.;x <=1.; x++){\n      vec2 offs = vec2 (x,y);\n      vec2 n = N22(id+offs);\n      vec2 p = offs+sin(n * time)* .5;\n      float d = length(gv-p);\n      if(d < minDist){\n        minDist = d;\n      }      \n    }\n  }\n\n  return minDist;\n}"
+      },
+      "position": { "x": 567, "y": 224 },
+      "width": 128,
+      "height": 108,
+      "selected": false,
+      "dragging": false,
+      "positionAbsolute": { "x": 567, "y": 224 }
+    }
+  ],
+  "edges": [
+    {
+      "source": "1",
+      "sourceHandle": "veronoi",
+      "target": "2",
+      "targetHandle": "color",
+      "type": "smoothstep",
+      "id": "reactflow__edge-1veronoi-2color"
+    },
+    {
+      "source": "4",
+      "sourceHandle": "elapsed",
+      "target": "1",
+      "targetHandle": "time",
+      "type": "smoothstep",
+      "id": "reactflow__edge-4elapsed-1time"
+    },
+    {
+      "source": "5",
+      "sourceHandle": "vec2",
+      "target": "1",
+      "targetHandle": "uv",
+      "type": "smoothstep",
+      "id": "reactflow__edge-5vec2-1uv"
+    }
+  ],
+  "uniforms": [{ "type": "time", "value": 0, "id": "1", "name": "time" }]
+}
