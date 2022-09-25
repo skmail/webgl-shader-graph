@@ -1,12 +1,15 @@
 import { NodeProps } from "react-flow-renderer";
+import shallow from "zustand/shallow";
 import { useStore } from "../../store";
-import { UniformNodeData } from "../../types";
+import { NodeData, UniformNodeData } from "../../types";
 import { Body } from "./Node/Body";
 
 export function Uniform({ data, ...rest }: NodeProps<UniformNodeData>) {
   const uniform = useStore((state) =>
-    state.uniforms.find((uniform) => uniform.id === data.uniformId)
+    state.uniforms.find((uniform) => uniform.id === data.uniformId),
+    shallow
   );
+
 
   if (!uniform) {
     return null;

@@ -10,6 +10,7 @@ function CanvasContent(props: NodeProps) {
     return null;
   }
 
+ 
   return (
     <mesh key={fragmentShader}>
       <boxGeometry args={[6, 6, 2]} />

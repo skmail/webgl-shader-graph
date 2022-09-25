@@ -8,7 +8,7 @@ import { Uniform } from "./components/NodeTypes/Uniform";
 import { AddNodeDropdown } from "./components/AddNodeDropdown";
 import { Edge } from "./components/Edge";
 import veronoi from "./samples/veronoi.json";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { RunnerState } from "./types";
 
 const nodeTypes = {
@@ -21,11 +21,35 @@ const edgeTypes = {
   smoothstep: Edge,
 };
 function Flow() {
-  const { nodes, edges, onNodesChange, onEdgesChange, onConnect } = useStore();
-
+  const { nodes, edges, uniforms, onNodesChange, onEdgesChange, onConnect } =
+    useStore();
+    console.log(JSON.stringify(nodes))
+    console.log(JSON.stringify(edges))
+    console.log(JSON.stringify(uniforms))
   useEffect(() => {
-    useStore.getState().init(veronoi as RunnerState);
+    const sample = window.localStorage.getItem("sample");
+    if (sample) {
+      useStore.getState().init(JSON.parse(sample) as RunnerState);
+    } else {
+      useStore.getState().init(veronoi as RunnerState);
+    }
   }, []);
+
+  const isStartCount = useRef(0);
+  useEffect(() => {
+    isStartCount.current++;
+
+    // lol
+    if (isStartCount.current < 5) {
+      return;
+    }
+
+    window.localStorage.setItem(
+      "sample",
+      JSON.stringify({ nodes, edges, uniforms })
+    );
+  }, [nodes, edges, uniforms]);
+
   return (
     <ReactFlowProvider>
       <div className="h-screen w-screen bg-gray-900">

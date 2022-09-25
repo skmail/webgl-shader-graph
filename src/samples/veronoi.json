@@ -1,12 +1,96 @@
 {
   "nodes": [
     {
+      "id": "15",
+      "type": "uniform",
+      "data": {
+        "name": "color_14",
+        "value": "#000000",
+        "uniformId": "13",
+        "type": "color"
+      },
+      "position": { "x": 723.3140082888544, "y": 442.30526636552673 },
+      "width": 128,
+      "height": 42,
+      "selected": false,
+      "positionAbsolute": { "x": 723.3140082888544, "y": 442.30526636552673 },
+      "dragging": false
+    },
+    {
+      "id": "12",
+      "type": "node",
+      "data": { "name": "add_11", "type": "add" },
+      "position": { "x": 922.3171620136698, "y": 346.3212471049038 },
+      "width": 128,
+      "height": 60,
+      "selected": false,
+      "positionAbsolute": { "x": 922.3171620136698, "y": 346.3212471049038 },
+      "dragging": false
+    },
+    {
+      "id": "11",
+      "type": "node",
+      "data": { "name": "multiply_10", "type": "multiply" },
+      "position": { "x": 678.9462584298846, "y": 255.21423336304144 },
+      "width": 128,
+      "height": 60,
+      "selected": false,
+      "positionAbsolute": { "x": 678.9462584298846, "y": 255.21423336304144 },
+      "dragging": false
+    },
+    {
+      "id": "10",
+      "type": "uniform",
+      "data": {
+        "name": "color_9",
+        "value": "#000000",
+        "uniformId": "8",
+        "type": "color"
+      },
+      "position": { "x": 491.37042839166884, "y": 480.522207562049 },
+      "width": 128,
+      "height": 42,
+      "selected": false,
+      "positionAbsolute": { "x": 491.37042839166884, "y": 480.522207562049 },
+      "dragging": false
+    },
+    {
+      "id": "8",
+      "type": "uniform",
+      "data": {
+        "name": "float_6",
+        "value": 0,
+        "uniformId": "5",
+        "type": "float"
+      },
+      "position": { "x": 136.11746114174466, "y": 337.94128708955793 },
+      "width": 128,
+      "height": 42,
+      "selected": false,
+      "positionAbsolute": { "x": 136.11746114174466, "y": 337.94128708955793 },
+      "dragging": false
+    },
+    {
+      "id": "7",
+      "type": "node",
+      "data": { "name": "multiply_6", "type": "multiply" },
+      "position": { "x": 384.8573906637711, "y": 135.98494595204266 },
+      "width": 128,
+      "height": 60,
+      "selected": false,
+      "positionAbsolute": { "x": 384.8573906637711, "y": 135.98494595204266 },
+      "dragging": false
+    },
+    {
       "id": "5",
       "type": "node",
       "data": { "name": "uv", "type": "uv" },
-      "position": { "x": 181, "y": 107 },
+      "position": { "x": 173.544758024506, "y": 66.41034924453265 },
       "width": 128,
-      "height": 42
+      "height": 78,
+      "selected": false,
+      "positionAbsolute": { "x": 173.544758024506, "y": 66.41034924453265 },
+      "dragging": false
     },
     {
       "id": "4",
@@ -23,18 +107,18 @@
       "id": "2",
       "type": "node",
       "data": { "name": "preview", "type": "preview" },
-      "position": { "x": 832, "y": 186 },
+      "position": { "x": 1122.3359901797114, "y": 261.79994394154903 },
       "width": 128,
       "height": 188,
-      "selected": false,
-      "positionAbsolute": { "x": 832, "y": 186 },
+      "selected": true,
+      "positionAbsolute": { "x": 1122.3359901797114, "y": 261.79994394154903 },
       "dragging": false
     },
     {
       "id": "1",
       "type": "function",
       "data": {
-        "name": "veronoi",
+        "name": "noise",
         "type": "function",
         "definitions": {
           "outputs": [{ "type": "float", "name": "veronoi" }],
@@ -45,23 +129,15 @@
         },
         "code": "vec2 N22(in vec2 p){\n  vec3 a = fract(p.xyx * vec3(123.34,234.34,345.64));\n  a+=dot(a, a+ 34.45);\n  return fract(vec2(a.x*a.y, a.y*a.z));\n}\n\n\nfloat veronoi(vec2 uv, float time){\n  vec2 gv = fract(uv) -.5;\n  vec2 id = floor(uv);\n  vec3 col = vec3(0);\n  float minDist = 100.;\n  for(float y = -1.;y <=1.; y++){\n    for(float x = -1.;x <=1.; x++){\n      vec2 offs = vec2 (x,y);\n      vec2 n = N22(id+offs);\n      vec2 p = offs+sin(n * time)* .5;\n      float d = length(gv-p);\n      if(d < minDist){\n        minDist = d;\n      }      \n    }\n  }\n\n  return minDist;\n}"
       },
-      "position": { "x": 567, "y": 224 },
+      "position": { "x": 478.7244822876189, "y": 264.24934484754516 },
       "width": 128,
       "height": 108,
       "selected": false,
       "dragging": false,
-      "positionAbsolute": { "x": 567, "y": 224 }
+      "positionAbsolute": { "x": 478.7244822876189, "y": 264.24934484754516 }
     }
   ],
   "edges": [
-    {
-      "source": "1",
-      "sourceHandle": "veronoi",
-      "target": "2",
-      "targetHandle": "color",
-      "type": "smoothstep",
-      "id": "reactflow__edge-1veronoi-2color"
-    },
     {
       "source": "4",
       "sourceHandle": "elapsed",
@@ -73,11 +149,73 @@
     {
       "source": "5",
       "sourceHandle": "vec2",
+      "target": "7",
+      "targetHandle": "a",
+      "type": "smoothstep",
+      "id": "reactflow__edge-5vec2-7a"
+    },
+    {
+      "source": "8",
+      "sourceHandle": "output",
+      "target": "7",
+      "targetHandle": "b",
+      "type": "smoothstep",
+      "id": "reactflow__edge-8output-7b"
+    },
+    {
+      "source": "7",
+      "sourceHandle": "output",
       "target": "1",
       "targetHandle": "uv",
       "type": "smoothstep",
-      "id": "reactflow__edge-5vec2-1uv"
+      "id": "reactflow__edge-7output-1uv"
+    },
+    {
+      "source": "10",
+      "sourceHandle": "color ",
+      "target": "11",
+      "targetHandle": "a",
+      "type": "smoothstep",
+      "id": "reactflow__edge-10color -11a"
+    },
+    {
+      "source": "1",
+      "sourceHandle": "veronoi",
+      "target": "11",
+      "targetHandle": "b",
+      "type": "smoothstep",
+      "id": "reactflow__edge-1veronoi-11b"
+    },
+    {
+      "source": "11",
+      "sourceHandle": "output",
+      "target": "12",
+      "targetHandle": "a",
+      "type": "smoothstep",
+      "id": "reactflow__edge-11output-12a"
+    },
+    {
+      "source": "15",
+      "sourceHandle": "color ",
+      "target": "12",
+      "targetHandle": "b",
+      "type": "smoothstep",
+      "id": "reactflow__edge-15color -12b"
+    },
+    {
+      "source": "12",
+      "sourceHandle": "output",
+      "target": "2",
+      "targetHandle": "color",
+      "type": "smoothstep",
+      "id": "reactflow__edge-12output-2color"
     }
   ],
-  "uniforms": [{ "type": "time", "value": 0, "id": "1", "name": "time" }]
+  "uniforms": [
+    { "type": "time", "value": 0, "id": "1", "name": "time" },
+    { "type": "float", "value": 7, "id": "5", "name": "float_6" },
+    { "type": "color", "value": "#1ad998", "id": "8", "name": "color_9" },
+    { "type": "float", "value": 0, "id": "12", "name": "float_13" },
+    { "type": "color", "value": "#573976", "id": "13", "name": "color_14" }
+  ]
 }

@@ -3,7 +3,6 @@ import {
   FunctionNodeData,
   IRunner,
   Node,
-  NodeHandle,
   NodeRunner,
   UniformNode,
 } from "../types";
@@ -49,6 +48,7 @@ const nodes: Record<string, NodeRunner> = {
       });
     },
   },
+
   multiply: {
     ...extractFunctions("float output(float a, float b);")[0],
     toStack(node, runner) {
@@ -317,6 +317,14 @@ const nodes: Record<string, NodeRunner> = {
         type: "vec2",
         name: "vec2",
       },
+      {
+        type: "float",
+        name: "x",
+      },
+      {
+        type: "float",
+        name: "y",
+      },
     ],
     toStack(node, runner) {
       runner.addInstruction(node.id, {
@@ -324,6 +332,32 @@ const nodes: Record<string, NodeRunner> = {
         dataType: "vec2",
         name: "vUv",
       });
+    },
+  },
+
+  fromVec3: {
+    inputs: [
+      {
+        type: "vec3",
+        name: "vec3",
+      },
+    ],
+    outputs: [
+      {
+        type: "float",
+        name: "x",
+      },
+      {
+        type: "float",
+        name: "y",
+      },
+      {
+        type: "float",
+        name: "z",
+      },
+    ],
+    toStack(node, runner) {
+      
     },
   },
 };

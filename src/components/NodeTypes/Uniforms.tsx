@@ -42,7 +42,7 @@ const Label = ({ uniform }: { uniform: UniformType }) => {
       <button
         onClick={() => {
           onNodeAdd({
-            id: String(useStore.getState().nodes.length),
+            id: String(useStore.getState().maxId),
             type: "uniform",
             data: {
               name: uniform.name,
@@ -163,9 +163,7 @@ export function Uniforms() {
                                 onClick={() =>
                                   onUniformAdd({
                                     ...type,
-                                    id: String(
-                                      useStore.getState().uniforms.length
-                                    ),
+                                    id: String(useStore.getState().maxId),
                                   })
                                 }
                                 className="text-gray-300 cursor-pointer font-medium hover:bg-gray-800   w-full px-4 py-2 text-sm leading-5 text-left"

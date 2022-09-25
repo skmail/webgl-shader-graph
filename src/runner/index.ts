@@ -52,7 +52,7 @@ export class Runner implements IRunner {
   getUniform(uniformId: string): Uniform {
     return this.uniforms.get(uniformId) as Uniform;
   }
-  
+
   addInstruction(nodeId: string, instruction: Instruction) {
     let type = instruction.type;
 

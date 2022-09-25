@@ -114,11 +114,11 @@ export function AddNodeDropdownInternal() {
                         <button
                           onClick={() => {
                             useStore.getState().onNodeAdd({
-                              id: String(useStore.getState().nodes.length),
+                              id: String(useStore.getState().maxId),
                               type: type.nodeType || "node",
                               data: {
                                 name: `${type.type}_${String(
-                                  useStore.getState().nodes.length
+                                  useStore.getState().maxId
                                 )}`,
                                 type: type.type,
                               },
